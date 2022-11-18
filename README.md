@@ -18,7 +18,7 @@ ajv validate -s ./degree.yaml -d ./credential.json --strict=false
 
 ### Example
 
-See [degree.yaml](degree.yaml).
+See [degree.yaml](degree.yaml) and [credential.yaml](credential.yaml).
 
 ```yaml
 $id: https://example.org/examples/degree.yaml
