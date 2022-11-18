@@ -1,4 +1,4 @@
-## Verfiable Credential Schemas with Open API Specification
+### Verfiable Credential Schemas with Open API Specification
 
 - [Editors Draft](https://transmute-industries.github.io/vc-credential-schema-open-api-specification/)
 
