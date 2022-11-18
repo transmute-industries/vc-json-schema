@@ -8,6 +8,14 @@
 
 ### Usage
 
+```shell
+curl -s https://transmute-industries.github.io/vc-credential-schema-open-api-specification/degree.yaml > degree2.yaml
+# npm install -g ajv-cli
+ajv validate -s degree2.yaml -d ./credential.json --strict=false
+```
+
+#### Contributing
+
 ```
 git clone git@github.com:transmute-industries/vc-credential-schema-open-api-specification.git
 cd vc-credential-schema-open-api-specification
@@ -15,6 +23,8 @@ npm install -g ajv-cli
 ajv validate -s ./degree.yaml -d ./credential.json --strict=false
 ./credential.json valid
 ```
+
+
 
 ### Example
 
