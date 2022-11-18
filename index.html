@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Open API Specification for Verfiable Credential Schemas</title>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      var respecConfig = {
+        specStatus: "unofficial",
+        editors: [
+          {
+            name: "Orie Steele",
+            company: "Transmute",
+            companyURL: "https://www.transmute.industries/",
+            w3cid: 109171,
+          },
+        ],
+        github:
+          "transmute-industries/vc-credential-schema-open-api-specification",
+        shortName: "vc-schema-oas",
+        // group: "vc",
+        localBiblio: {
+          OAS: {
+            title: "OpenAPI Specification",
+            href: "https://swagger.io/specification/",
+            authors: [
+              "Darrel Miller",
+              "Jeremy Whitlock",
+              "Marsh Gardiner ",
+              "Mike Ralphson",
+              "Ron Ratovsky",
+              "Uri Sarid",
+            ],
+            status: "unofficial",
+            publisher: "OpenAPI Initiative",
+          },
+        },
+        xref: {
+          specs: ["DID-CORE", "VC-DATA-MODEL", "JSON-LD"],
+          profile: "web-platform",
+        },
+        otherLinks: [
+          {
+            key: "Related Documents",
+            data: [
+              {
+                value: "Decentralized Identifiers (DIDs) v1.0",
+                href: "https://www.w3.org/TR/did-core/",
+              },
+              {
+                value: "Verifiable Credentials Data Model v1.1",
+                href: "https://www.w3.org/TR/vc-data-model/",
+              },
+            ],
+          },
+        ],
+      };
+    </script>
+  </head>
+  <body>
+    <section id="abstract">
+      <p>
+        This specification defines a credential schema validation scheme for use
+        with the
+        <a data-cite="VC-DATA-MODEL#data-schemas">credential schema</a>
+        property of
+        <a data-cite="VC-DATA-MODEL#credentials">Verifiable Credentials</a>
+      </p>
+
+      <p class="issue" data-number="1">
+        <!-- Issue can automatically be populated from GitHub -->
+      </p>
+    </section>
+
+    <section id="sotd"><!-- This is required. --></section>
+
+    <section>
+      <h2>Credential Schema</h2>
+
+      <p>
+        Due to the dependency on the W3C Verifiable Credentials
+        <a data-cite="VC-DATA-MODEL#contexts">@context</a>, the following
+        <a data-cite="JSON-LD#aliasing-keywords"> aliases</a> are inherited.
+      </p>
+
+      <ul>
+        <li>
+          <a data-cite="JSON-LD#node-identifiers">@id</a> is expressed as
+          <a data-cite="JSON-LD#node-identifiers">id</a>
+        </li>
+        <li>
+          <a data-cite="JSON-LD#specifying-the-type">@type</a> is expressed as
+          <a data-cite="JSON-LD#specifying-the-type">@type</a>
+        </li>
+      </ul>
+
+      <aside class="note" title="Why Credential Schemas?">
+        <p>
+          <a data-cite="VC-DATA-MODEL#credentials">Verifiable Credentials</a>
+          enable assurnace that the exchange of data between parties has occured
+          without any tampering.
+        </p>
+
+        <p>
+          <a data-cite="DID-CORE#ecosystem-overview">Issuers</a> ,
+          <a data-cite="DID-CORE#ecosystem-overview">Holders</a> and
+          <a data-cite="DID-CORE#ecosystem-overview">Verifiers</a>
+          might want to exchange a
+          <a data-cite="VC-DATA-MODEL#data-schemas">credential schema</a>
+          by reference as part of a policy coordination or code sharing effort.
+        </p>
+      </aside>
+
+      <section data-dfn-for="OpenApiSpecificationValidator2022">
+        <h2>OpenApiSpecificationValidator2022</h2>
+        <p>
+          <dfn>OpenApiSpecificationValidator2022</dfn> is an RDF Type defined
+          for validation of W3C Verifiable Credentials.
+        </p>
+
+        <p>
+          An <a data-cite="DID-CORE#identifiers">issuer</a> MUST include a
+          <a data-cite="VC-DATA-MODEL#data-schemas">credentialSchema</a> of
+          <a data-cite="JSON-LD#specifying-the-type">type</a>
+          {{OpenApiSpecificationValidator2022}}.
+        </p>
+
+        <p>
+          The <a data-cite="VC-DATA-MODEL#proofs-signatures">$id</a> of the
+          <a href="https://swagger.io/specification/#schema-object"
+            >schema object</a
+          >
+          MUST match the
+          <a data-cite="JSON-LD#node-identifiers">credentialSchema.id</a>.
+        </p>
+
+        <p>
+          The <a data-cite="VC-DATA-MODEL#proofs-signatures">proof</a> MUST
+          match the
+          <a data-cite="JSON-LD#specifying-the-type">credentialSchema.type</a>
+          specified in the
+          <a href="https://swagger.io/specification/#schema-object"
+            >schema object</a
+          >
+          that is resolved from the
+          <a data-cite="JSON-LD#node-identifiers">credentialSchema.id</a>
+        </p>
+
+        <section>
+          <h2>Example</h2>
+          <aside
+            class="example"
+            title="A credential schema for a University Degree"
+          >
+            <p>This is how to use it.</p>
+            <pre data-include="./degree.yaml" data-include-format="yaml"></pre>
+          </aside>
+        </section>
+
+        <section>
+          <h2>Usage</h2>
+
+          <p>
+            This is how to valdiate a credential using
+            <a href="https://github.com/ajv-validator/ajv-cli"
+              >ajv-validator/ajv-cli</a
+            >.
+          </p>
+
+          <aside class="example" title="How to validate with ajv">
+            <pre class="bash">
+$ ajv validate -s ./degree.yaml -d ./credential.json --strict=false
+            </pre>
+            <p>If the command exists without error you will see:</p>
+            <pre class="bash">
+./credential.json valid
+            </pre>
+          </aside>
+        </section>
+      </section>
+    </section>
+
+    <section id="conformance">
+      <p>
+        This is required for specifications that contain normative material.
+      </p>
+    </section>
+  </body>
+</html>
