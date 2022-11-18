@@ -24,8 +24,6 @@ ajv validate -s ./degree.yaml -d ./credential.json --strict=false
 ./credential.json valid
 ```
 
-
-
 ### Example
 
 See [degree.yaml](degree.yaml) and [credential.json](credential.json).
