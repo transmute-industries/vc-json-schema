@@ -141,18 +141,6 @@
           <a data-cite="JSON-LD#node-identifiers">credentialSchema.id</a>.
         </p>
 
-        <p>
-          The <a data-cite="VC-DATA-MODEL#proofs-signatures">proof</a> MUST
-          match the
-          <a data-cite="JSON-LD#specifying-the-type">credentialSchema.type</a>
-          specified in the
-          <a href="https://swagger.io/specification/#schema-object"
-            >schema object</a
-          >
-          that is resolved from the
-          <a data-cite="JSON-LD#node-identifiers">credentialSchema.id</a>
-        </p>
-
         <section>
           <h2>Example</h2>
           <aside
@@ -163,27 +151,6 @@
             <pre data-include="./example/NewCredentialType.yml" data-include-format="yaml"></pre>
           </aside>
         </section>
-
-        <section>
-          <h2>Usage</h2>
-
-          <p>
-            This is how to valdiate a credential using
-            <a href="https://github.com/ajv-validator/ajv-cli"
-              >ajv-validator/ajv-cli</a
-            >.
-          </p>
-
-          <aside class="example" title="How to validate with ajv">
-            <pre class="bash">
-$ ajv validate -s ./example/NewCredentialType.yml -d ./credential.json --strict=false
-            </pre>
-            <p>If the command exists without error you will see:</p>
-            <pre class="bash">
-./credential.json valid
-            </pre>
-          </aside>
-        </section>
       </section>
     </section>
 
@@ -191,6 +158,30 @@ $ ajv validate -s ./example/NewCredentialType.yml -d ./credential.json --strict=
       <p>
         This is required for specifications that contain normative material.
       </p>
+    </section>
+
+    <section id="appendix">
+      <h2>Appendix</h2>
+      <section>
+        <h2>Command Line Example</h2>
+        <p>
+          This is how to valdiate a credential using
+          <a href="https://github.com/ajv-validator/ajv-cli"
+            >ajv-validator/ajv-cli</a
+          >.
+        </p>
+        <aside class="example" title="How to validate with ajv">
+          <pre class="bash" data-include="./demo.sh"></pre>
+          <pre class="bash">
+❯ ./demo.sh 
+🌴 Validation
+schema ./example/NewCredentialType.yml is valid
+./example/vc.json valid
+./example/vc.json passed test
+./vc.json passed test
+          </pre>
+        </aside>
+      </section>
     </section>
   </body>
 </html>

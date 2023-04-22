@@ -1,2 +1,4 @@
 .vscode
-degree2.yaml
+schema.yaml
+vc.json
+vc.jwt
