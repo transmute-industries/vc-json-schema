@@ -122,14 +122,18 @@
         <a data-cite="JSON-LD#specifying-the-type">type</a>
         {{JsonSchema}}.
       </p>
-      <pre class="example" title="An example refering to JsonSchema as a living standard">
-...
-"credentialSchema": {
-  "id": "https://vendor.example/schemas/credential.yaml",
-  "type": "JsonSchema"
-}
-...
-      </pre>
+      <section>
+        <h2>Example</h2>
+        <aside
+          class="example"
+          title="An example verifiable credential with status and schema"
+        >
+          <p>This is how to use it.</p>
+          <pre data-include="./example/NewCredentialType.yml" data-include-format="yaml"></pre>
+        </aside>
+      </section>
+
+      
     </section>
 
     <section data-dfn-for="JsonSchema2020">
@@ -145,16 +149,14 @@
         <a data-cite="JSON-LD#specifying-the-type">type</a>
         {{JsonSchema2020}}.
       </p>
-      <section>
-        <h2>Example</h2>
-        <aside
-          class="example"
-          title="An example verifiable credential with status and schema"
-        >
-          <p>This is how to use it.</p>
-          <pre data-include="./example/NewCredentialType.yml" data-include-format="yaml"></pre>
-        </aside>
-      </section>
+      <pre class="example" title="An example refering to a specific version of JsonSchema">
+        ...
+        "credentialSchema": {
+          "id": "https://vendor.example/schemas/credential.yaml",
+          "type": "JsonSchema2020"
+        }
+        ...
+              </pre>
     </section>
     <section id="conformance">
       <p>
