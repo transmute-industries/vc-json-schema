@@ -66,7 +66,7 @@ addFormats(ajv);
 ajv.addKeyword('example');
 
 (async ()=>{
-  const schemaYaml = yaml.load(fs.readFileSync(path.resolve(__dirname, './NewCredentialType.yml')).toString())
+  const schemaYaml = yaml.load(fs.readFileSync(path.resolve(__dirname, './NewCredentialType.yaml')).toString())
   const schemaJson = JSON.parse(JSON.stringify(schemaYaml));
   fs.writeFileSync('./NewCredentialType.json', JSON.stringify(schemaJson, null, 2))
   const { example } = schemaJson
