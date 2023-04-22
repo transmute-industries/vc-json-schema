@@ -9,11 +9,22 @@
 ### Usage
 
 ```shell
-curl -s https://transmute-industries.github.io/vc-credential-schema-open-api-specification/example/NewCredentialType.yml > schema.yaml
-# npm install -g ajv-cli
+#!/bin/bash 
+
 JWT=$(cat ./example/vc.jwt)
 jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$JWT" > ./example/vc.json
-ajv validate -s schema.yaml -d ./vc.json --strict=false
+
+echo "🌴 Validation"
+ajv --spec=draft2020 compile -c ./customKeywords.js -s ./example/NewCredentialType.yml
+ajv --spec=draft2020 validate -c ./customKeywords.js -s ./example/NewCredentialType.yml -d ./example/vc.json 
+ajv --spec=draft2020 test -c ./customKeywords.js -s ./example/NewCredentialType.yml -d ./example/vc.json --valid
+
+
+curl -s https://transmute-industries.github.io/vc-credential-schema-open-api-specification/example/NewCredentialType.yml > schema.yaml
+curl -s https://transmute-industries.github.io/vc-credential-schema-open-api-specification/example/vc.jwt > vc.jwt
+JWT=$(cat ./vc.jwt)
+jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$JWT" > ./vc.json
+ajv --spec=draft2020 test -c ./customKeywords.js -s ./schema.yaml -d ./vc.json --valid
 ```
 
 See also [demo.sh](./demo.sh).
