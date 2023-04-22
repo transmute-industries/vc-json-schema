@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Verifiable Credential Schemas with Open API Specification</title>
+    <title>Validating Verifiable Credentials with JSON Schema</title>
     <script
       src="https://www.w3.org/Tools/respec/respec-w3c"
       class="remove"
@@ -21,9 +21,17 @@
         ],
         github:
           "transmute-industries/vc-credential-schema-open-api-specification",
-        shortName: "vc-schema-oas",
+        shortName: "vc-json-schema",
         // group: "vc",
         localBiblio: {
+          JsonSchema: {
+            title: "JSON Schema",
+            href: 'https://json-schema.org/specification.html',
+            authors: [
+              "JSON Schema contributors"
+            ],
+            publisher: "OpenJS Foundation",
+          },
           OAS: {
             title: "OpenAPI Specification",
             href: "https://swagger.io/specification/",
@@ -35,7 +43,6 @@
               "Ron Ratovsky",
               "Uri Sarid",
             ],
-            status: "unofficial",
             publisher: "OpenAPI Initiative",
           },
         },
@@ -64,104 +71,123 @@
   <body>
     <section id="abstract">
       <p>
-        This specification defines a credential schema validation scheme for use
+        This specification defines a [[JsonSchema]] based credential schema validation scheme for use
         with the
         <a data-cite="VC-DATA-MODEL#data-schemas">credential schema</a>
         property of
         <a data-cite="VC-DATA-MODEL#credentials">Verifiable Credentials</a>
       </p>
-      
-<!-- 
-  <p class="issue" data-number="1">
-    Issue can automatically be populated from GitHub 
-  </p>
--->
-
     </section>
-
     <section id="sotd"><!-- This is required. --></section>
-
     <section>
       <h2>Credential Schema</h2>
-
       <p>
-        Due to the dependency on the W3C Verifiable Credentials
-        <a data-cite="VC-DATA-MODEL#contexts">@context</a>, the following
-        <a data-cite="JSON-LD#aliasing-keywords"> aliases</a> are inherited.
+        <a data-cite="VC-DATA-MODEL#credentials">Verifiable Credentials</a>
+        enable assurnace that the exchange of data between parties has occured
+        without any tampering.
       </p>
+      <p>
+        <a data-cite="DID-CORE#ecosystem-overview">Issuers</a> ,
+        <a data-cite="DID-CORE#ecosystem-overview">Holders</a> and
+        <a data-cite="DID-CORE#ecosystem-overview">Verifiers</a>
+        might want to exchange a
+        <a data-cite="VC-DATA-MODEL#data-schemas">credential schema</a>
+        by reference as part of a policy coordination or code sharing effort.
+      </p>
+      <p class="note">
+        JSON Schema calls their specification versions "drafts" and publishes them by year, see [[JsonSchema]].
+      </p>
+      <p class="note">
+        Open API Specification depends on [[JsonSchema]], see [[OAS]].
+      </p>
+      <p>
+        While both YAML and JSON are supported, 
+        implementations SHOULD use YAML for schemas that are meant to be read and edited by humans.
+      </p>
+      <p>
+       Per the guidance from <a href="https://yaml.org/faq.html">yaml.org</a>, 
+       implementations SHOULD use <code>.yaml</code> as the file extension. 
+      </p>
+    </section>
+    <section data-dfn-for="JsonSchema">
+      <h2>JsonSchema</h2>
+      <p>This <a data-cite="JSON-LD#dfn-term-definition">term definition</a> is <code>https://www.w3.org/ns/credentials/issuer-dependent#JsonSchema</code>.</p>
+      <p>
+        <dfn>JsonSchema</dfn> is used for validation of W3C Verifiable Credentials, based on <i>the latest version of the living standard</i>.
+      </p>
+      <p>
+        An <a data-cite="DID-CORE#identifiers">issuer</a> MAY include a
+        <a data-cite="VC-DATA-MODEL#data-schemas">credentialSchema</a> of
+        <a data-cite="JSON-LD#specifying-the-type">type</a>
+        {{JsonSchema}}.
+      </p>
+      <pre class="example" title="An example refering to JsonSchema as a living standard">
+...
+"credentialSchema": {
+  "id": "https://vendor.example/schemas/credential.yaml",
+  "type": "JsonSchema"
+}
+...
+      </pre>
+    </section>
 
-      <ul>
-        <li>
-          <a data-cite="JSON-LD#node-identifiers">@id</a> is expressed as
-          <a data-cite="JSON-LD#node-identifiers">id</a>
-        </li>
-        <li>
-          <a data-cite="JSON-LD#specifying-the-type">@type</a> is expressed as
-          <a data-cite="JSON-LD#specifying-the-type">@type</a>
-        </li>
-      </ul>
-
-      <aside class="note" title="Why Credential Schemas?">
-        <p>
-          <a data-cite="VC-DATA-MODEL#credentials">Verifiable Credentials</a>
-          enable assurnace that the exchange of data between parties has occured
-          without any tampering.
-        </p>
-
-        <p>
-          <a data-cite="DID-CORE#ecosystem-overview">Issuers</a> ,
-          <a data-cite="DID-CORE#ecosystem-overview">Holders</a> and
-          <a data-cite="DID-CORE#ecosystem-overview">Verifiers</a>
-          might want to exchange a
-          <a data-cite="VC-DATA-MODEL#data-schemas">credential schema</a>
-          by reference as part of a policy coordination or code sharing effort.
-        </p>
-      </aside>
-
-      <section data-dfn-for="OpenApiSpecificationValidator2022">
-        <h2>OpenApiSpecificationValidator2022</h2>
-        <p>
-          <dfn>OpenApiSpecificationValidator2022</dfn> is an RDF Type defined
-          for validation of W3C Verifiable Credentials.
-        </p>
-
-        <p>
-          An <a data-cite="DID-CORE#identifiers">issuer</a> MUST include a
-          <a data-cite="VC-DATA-MODEL#data-schemas">credentialSchema</a> of
-          <a data-cite="JSON-LD#specifying-the-type">type</a>
-          {{OpenApiSpecificationValidator2022}}.
-        </p>
-
-        <p>
-          The <a data-cite="VC-DATA-MODEL#proofs-signatures">$id</a> of the
-          <a href="https://swagger.io/specification/#schema-object"
-            >schema object</a
-          >
-          MUST match the
-          <a data-cite="JSON-LD#node-identifiers">credentialSchema.id</a>.
-        </p>
-
-        <section>
-          <h2>Example</h2>
-          <aside
-            class="example"
-            title="An example verifiable credential with status and schema"
-          >
-            <p>This is how to use it.</p>
-            <pre data-include="./example/NewCredentialType.yml" data-include-format="yaml"></pre>
-          </aside>
-        </section>
+    <section data-dfn-for="JsonSchema2020">
+      <h2>JsonSchema2020</h2>
+      <p>This <a data-cite="JSON-LD#dfn-term-definition">term definition</a> is <code>https://www.w3.org/ns/credentials/issuer-dependent#JsonSchema2020</code>.</p>
+      <p>
+        <dfn>JsonSchema2020</dfn> is 
+        for validation of W3C Verifiable Credentials, based on JSON Schema version <code>2020-12</code>.
+      </p>
+      <p>
+        An <a data-cite="DID-CORE#identifiers">issuer</a> MAY include a
+        <a data-cite="VC-DATA-MODEL#data-schemas">credentialSchema</a> of
+        <a data-cite="JSON-LD#specifying-the-type">type</a>
+        {{JsonSchema2020}}.
+      </p>
+      <section>
+        <h2>Example</h2>
+        <aside
+          class="example"
+          title="An example verifiable credential with status and schema"
+        >
+          <p>This is how to use it.</p>
+          <pre data-include="./example/NewCredentialType.yml" data-include-format="yaml"></pre>
+        </aside>
       </section>
     </section>
-
     <section id="conformance">
       <p>
-        This is required for specifications that contain normative material.
+        A JSON Document complies with this specification if 
+        it follows the normative guidance in [[VC-DATA-MODEL]] 
+        and implements the associated version of [[!JsonSchema]] 
+        specified by the credential schema <code>type</code> property,
+        as described in {{JsonSchema}} and {{JsonSchema2020}}.
       </p>
     </section>
-
     <section id="appendix">
       <h2>Appendix</h2>
+      <section>
+        <h2>JSON-LD Processing</h2>
+        <p>
+          Due to the dependency on the W3C Verifiable Credentials
+          <a data-cite="VC-DATA-MODEL#contexts">@context</a>, the following
+          <a data-cite="JSON-LD#aliasing-keywords"> aliases</a> are inherited.
+        </p>
+        <ul>
+          <li>
+            <a data-cite="JSON-LD#node-identifiers">@id</a> is expressed as
+            <a data-cite="JSON-LD#node-identifiers">id</a>
+          </li>
+          <li>
+            <a data-cite="JSON-LD#specifying-the-type">@type</a> is expressed as
+            <a data-cite="JSON-LD#specifying-the-type">@type</a>
+          </li>
+        </ul>
+        <p>Issuers might leverage <a data-cite="VC-DATA-MODEL#contexts">@context</a> 
+          to change <a data-cite="JSON-LD#dfn-term-definition">term definitions</a>, 
+          or the shape the RDF graph produced from [[JSON-LD]].
+        </p>
+      </section> 
       <section>
         <h2>Command Line Example</h2>
         <p>
