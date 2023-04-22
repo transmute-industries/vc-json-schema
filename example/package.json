@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node generate.js"
+  },
+  "author": "Orie Steele",
+  "license": "ISC",
+  "dependencies": {
+    "@transmute/vc-jwt-status-list": "^0.0.2",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1",
+    "axios": "^1.3.6",
+    "js-yaml": "^4.1.0",
+    "moment": "^2.29.4"
+  }
+}

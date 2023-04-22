@@ -70,12 +70,13 @@
         property of
         <a data-cite="VC-DATA-MODEL#credentials">Verifiable Credentials</a>
       </p>
+      
+<!-- 
+  <p class="issue" data-number="1">
+    Issue can automatically be populated from GitHub 
+  </p>
+-->
 
-      <p class="issue" data-number="1">
-        <!-- Issue can automatically be populated from GitHub -->
-      </p>
-
-      <p class="issue" data-number="2"></p>
     </section>
 
     <section id="sotd"><!-- This is required. --></section>
@@ -156,10 +157,10 @@
           <h2>Example</h2>
           <aside
             class="example"
-            title="A credential schema for a University Degree"
+            title="An example verifiable credential with status and schema"
           >
             <p>This is how to use it.</p>
-            <pre data-include="./degree.yaml" data-include-format="yaml"></pre>
+            <pre data-include="./example/NewCredentialType.yml" data-include-format="yaml"></pre>
           </aside>
         </section>
 
@@ -175,7 +176,7 @@
 
           <aside class="example" title="How to validate with ajv">
             <pre class="bash">
-$ ajv validate -s ./degree.yaml -d ./credential.json --strict=false
+$ ajv validate -s ./example/NewCredentialType.yml -d ./credential.json --strict=false
             </pre>
             <p>If the command exists without error you will see:</p>
             <pre class="bash">

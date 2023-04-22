@@ -1,0 +1,50 @@
+{
+  "schema": true,
+  "suspension": false,
+  "protectedHeader": {
+    "alg": "ES256",
+    "iss": "did:jwk:eyJrdHkiOiJFQyIsImNydiI6IlAtMjU2IiwiYWxnIjoiRVMyNTYiLCJ4IjoiTVl2bmFJODdwZnJuM0ZwVHFXLXlOaUZjRjFLN2ZlZEppcWFwbTIwX3E3YyIsInkiOiI5WUViVDZUeXVjN3hwOXlSdmhPVVZLS19OSUhrbjVIcEs5Wk1ndks1cFZ3In0",
+    "kid": "#0",
+    "typ": "vc+ld+jwt",
+    "cty": "vc+ld+json"
+  },
+  "payload": {
+    "@context": [
+      "https://www.w3.org/ns/credentials/v2",
+      "https://w3id.org/vc/status-list/2021/v1",
+      "https://w3id.org/vc/schema/2023/v1"
+    ],
+    "id": "http://vendor.example/credentials/1776",
+    "type": [
+      "VerifiableCredential",
+      "NewCredentialType"
+    ],
+    "issuer": {
+      "id": "did:jwk:eyJrdHkiOiJFQyIsImNydiI6IlAtMjU2IiwiYWxnIjoiRVMyNTYiLCJ4IjoiTVl2bmFJODdwZnJuM0ZwVHFXLXlOaUZjRjFLN2ZlZEppcWFwbTIwX3E3YyIsInkiOiI5WUViVDZUeXVjN3hwOXlSdmhPVVZLS19OSUhrbjVIcEs5Wk1ndks1cFZ3In0",
+      "type": [
+        "Organization",
+        "OrganizationType"
+      ]
+    },
+    "validFrom": "2010-01-01T19:23:24Z",
+    "credentialSchema": {
+      "id": "https://vendor.example/schemas/credential.yaml",
+      "type": "OpenApiSpecificationValidator2022"
+    },
+    "credentialStatus": {
+      "id": "https://vendor.example/credentials/status/3#4",
+      "type": "StatusList2021Entry",
+      "statusPurpose": "suspension",
+      "statusListIndex": "4",
+      "statusListCredential": "https://vendor.example/credentials/status/3"
+    },
+    "credentialSubject": {
+      "id": "did:example:456",
+      "type": [
+        "Person",
+        "JobType"
+      ],
+      "claimName": "claimValue"
+    }
+  }
+}
