@@ -1,6 +1,6 @@
 ### Verifiable Credential Schemas with Open API Specification
 
-- [Editors Draft](https://transmute-industries.github.io/vc-credential-schema-open-api-specification/)
+- [Editors Draft](https://transmute-industries.github.io/vc-json-schema/)
 
 ### Discussion Forums
 * [W3C Credentials Community Group Mailing List (Incubation)](https://lists.w3.org/Archives/Public/public-credentials/)
@@ -20,8 +20,8 @@ ajv --spec=draft2020 validate -c ./customKeywords.js -s ./example/NewCredentialT
 ajv --spec=draft2020 test -c ./customKeywords.js -s ./example/NewCredentialType.yml -d ./example/vc.json --valid
 
 
-curl -s https://transmute-industries.github.io/vc-credential-schema-open-api-specification/example/NewCredentialType.yml > schema.yaml
-curl -s https://transmute-industries.github.io/vc-credential-schema-open-api-specification/example/vc.jwt > vc.jwt
+curl -s https://transmute-industries.github.io/vc-json-schema/example/NewCredentialType.yml > schema.yaml
+curl -s https://transmute-industries.github.io/vc-json-schema/example/vc.jwt > vc.jwt
 JWT=$(cat ./vc.jwt)
 jq -R 'split(".") | .[1] | @base64d | fromjson' <<< "$JWT" > ./vc.json
 ajv --spec=draft2020 test -c ./customKeywords.js -s ./schema.yaml -d ./vc.json --valid
@@ -32,8 +32,8 @@ See also [demo.sh](./demo.sh).
 #### Contributing
 
 ```
-git clone git@github.com:transmute-industries/vc-credential-schema-open-api-specification.git
-cd vc-credential-schema-open-api-specification
+git clone git@github.com:transmute-industries/vc-json-schema.git
+cd vc-json-schema
 ```
 
 ### Example
@@ -61,7 +61,7 @@ example: |-
     "validFrom": "2010-01-01T19:23:24Z",
     "credentialSchema": {
       "id": "https://vendor.example/schemas/credential.yaml",
-      "type": "OpenApiSpecificationValidator2022"
+      "type": "JsonSchema"
     },
     "credentialStatus": {
       "id": "https://vendor.example/credentials/status/3#4",
@@ -123,7 +123,7 @@ properties:
         type: string
       type:
         type: string
-        const: OpenApiSpecificationValidator2022
+        const: JsonSchema
   credentialStatus:
     type: object
     properties:
