@@ -1,4 +1,4 @@
-### Verifiable Credential Schemas with Open API Specification
+### Validating Verifiable Credentials with JSON Schema
 
 - [Editors Draft](https://transmute-industries.github.io/vc-json-schema/)
 
